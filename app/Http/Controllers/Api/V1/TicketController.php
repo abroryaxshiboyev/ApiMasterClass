@@ -33,13 +33,10 @@ class TicketController extends ApiController
     {
         try {
             //policy
-            $this->isAble('store', null);
+            $this->isAble('store', Ticket::class);
+        } catch (AuthorizationException $ex) {
 
-            //TODO: create ticket
-        } catch (ModelNotFoundException $exception) {
-            return $this->ok('User not found', [
-                'error' => 'The provided user id does not exists'
-            ]);
+            return $this->error('You are not authorized to update that resource.', 401);
         }
 
         return new TicketResource(Ticket::create($request->mappedAttributes()));

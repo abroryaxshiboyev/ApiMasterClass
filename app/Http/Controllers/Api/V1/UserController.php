@@ -10,6 +10,7 @@ use App\Http\Resources\V1\UserResource;
 
 class AuthorsController extends ApiController
 {
+    protected policyClass=UserPolicy::class;
     /**
      * Display a listing of the resource.
      */
