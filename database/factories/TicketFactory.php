@@ -18,7 +18,7 @@ class TicketFactory extends Factory
     public function definition(): array
     {
         return [
-            'user_id'=>User::factory()->create()->id,
+            'user_id'=>User::factory(),
             'title'=>fake()->title(),
             'description'=>fake()->paragraph(10),
             'status'=>['C','H'][array_rand(['C','H'])]
