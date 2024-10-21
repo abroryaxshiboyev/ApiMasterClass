@@ -7,10 +7,11 @@ use App\Models\User;
 use App\Http\Requests\Api\V1\StoreUserRequest;
 use App\Http\Requests\Api\V1\UpdateUserRequest;
 use App\Http\Resources\V1\UserResource;
+use App\Policies\V1\UserPolicy;
 
-class AuthorsController extends ApiController
+class UserController extends ApiController
 {
-    protected policyClass=UserPolicy::class;
+    protected $policyClass=UserPolicy::class;
     /**
      * Display a listing of the resource.
      */
