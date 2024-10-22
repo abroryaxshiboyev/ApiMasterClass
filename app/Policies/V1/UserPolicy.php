@@ -2,7 +2,6 @@
 
 namespace App\Policies\V1;
 
-use App\Models\Ticket;
 use App\Models\User;
 use App\Permissions\V1\Abilities;
 
@@ -16,30 +15,23 @@ class UserPolicy
         //
     }
 
-    public function delete(User $user, Ticket $ticket): bool
+    public function delete(User $user, User $model): bool
     {
         return $user->tokenCan(Abilities::DeleteUser);
     }
-    
-    public function replace(User $user, Ticket $ticket): bool
+
+    public function replace(User $user, User $model): bool
     {
         return $user->tokenCan(Abilities::ReplaceUser);
     }
 
     public function store(User $user): bool
     {
-        return $user->tokenCan(Abilities::CreateUser) || $user->tokenCan(Abilities::CreateOwnTicket);
+        return $user->tokenCan(Abilities::CreateUser) ;
     }
-    public function update(User $user, Ticket $ticket): bool
+    public function update(User $user, User $model): bool
     {
-        if ($user->tokenCan(Abilities::UpdateTicket)) {
-            return true;
-        } else if ($user->tokenCan(Abilities::UpdateOwnTicket)) {
-
-            return $user->id === $ticket->user_id;
-        }
-
-        return false;
+            return $user->tokenCan(Abilities::UpdateUser) ;
     }
 
 }

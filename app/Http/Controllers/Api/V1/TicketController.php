@@ -34,12 +34,12 @@ class TicketController extends ApiController
         try {
             //policy
             $this->isAble('store', Ticket::class);
+            return new TicketResource(Ticket::create($request->mappedAttributes()));
         } catch (AuthorizationException $ex) {
 
             return $this->error('You are not authorized to update that resource.', 401);
         }
 
-        return new TicketResource(Ticket::create($request->mappedAttributes()));
     }
 
     /**
@@ -107,7 +107,7 @@ class TicketController extends ApiController
 
             //policy
             $this->isAble('delete', $ticket);
-            
+
             $ticket->delete();
 
             return $this->ok('Ticket successfully deleted');
